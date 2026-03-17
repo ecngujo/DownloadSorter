@@ -27,6 +27,7 @@ for file in downloads_folder.iterdir():
       folder = Path(downloads_folder) / fileSuffix
       folder.mkdir(exist_ok=True)
       shutil.move(str(file), str(Path(folder) / file.name))
+      totalFiles = totalFiles + 1
       print(f"{file.name[0:5]}.. -> {folder}")
     except FileNotFoundError:
       print(f"{file.name} not found or doesn't exist!")

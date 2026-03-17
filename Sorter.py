@@ -7,7 +7,8 @@ from pathlib import Path
 
 os_username = getpass.getuser()
 
-excluded = ["c", "ico", "png"]
+# Default settings for me
+excluded = ["c", "ico", "png", "py", "lua", "jpg", "webp"]
 
 # Default properties only! May not work with modified downloads location :P
 root = Path("C:/") / "Users" / os_username
@@ -18,8 +19,9 @@ if not downloads_folder.is_dir():
   print("Downloads folder not found!")
   sys.exit()
 
+totalFiles = 0
 for file in downloads_folder.iterdir():
-  fileSuffix = file.suffix.replace(".", "")
+  fileSuffix = file.suffix.replace(".", "").lower()
   if file.is_file() and str(fileSuffix) not in excluded:
     try:
       folder = Path(downloads_folder) / fileSuffix
@@ -30,3 +32,5 @@ for file in downloads_folder.iterdir():
       print(f"{file.name} not found or doesn't exist!")
     except Exception as e:
       print(f"Error found: {e}")
+
+print(f"{totalFiles} has been moved")

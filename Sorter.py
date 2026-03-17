@@ -13,16 +13,10 @@ excluded = ["c", "ico", "png"]
 root = Path("C:/") / "Users" / os_username
 downloads_folder = Path(root) / "Downloads"
 desktop_folder = Path(root) / "Desktop"
-container_folder = Path(desktop_folder) / "Container"
 
 if not downloads_folder.is_dir():
   print("Downloads folder not found!")
   sys.exit()
-
-# Storage for the category folders
-if not container_folder.is_dir():
-  print("Creating container..")
-  Path(container_folder).mkdir()
 
 for file in downloads_folder.iterdir():
   fileSuffix = file.suffix.replace(".", "")

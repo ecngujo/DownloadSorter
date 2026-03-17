@@ -14,19 +14,19 @@ os_username = getpass.getuser()
 os_name = platform.system() ## For future use?
 
 # Default properties only! May not work with modified downloads location
-root = os.path.join("C:\\Users", os_username)
-downloads_folder = os.path.join(root, "Downloads")
-desktop_folder = os.path.join(root, "Desktop")
+root = Path("C:/") / "Users" / os_username
+downloads_folder = Path(root) / "Downloads"
+desktop_folder = Path(root) / "Desktop"
+container_folder = Path(desktop_folder) / "Container"
 
-if not os.path.isdir(downloads_folder):
-  print("Download folder not found!")
+if not downloads_folder.is_dir():
+  print("Downloads folder not found!")
   sys.exit()
 
-
-# Storage for the category files
-container_folder = os.path.join(desktop_folder, "Container")
-if not os.path.isdir(container_folder):
-    os.mkdir(container_folder)
+# Storage for the category folders
+if not container_folder.is_dir():
+  print("Created container..")
+  Path(container_folder).mkdir()
 
 
 categories = ["mp3", "mp4", "pdf", "docx", "png", "jpg", "exe", "zip", "pptx"]
@@ -47,7 +47,7 @@ for file in os.listdir(downloads_folder):
     for category in categories:
       category_location = os.path.join(container_folder, category)
       if Path(file).suffix == f".{category}":
-        shutil.move(file_location, category_location)
+        # shutil.move(file_location, category_location)
         if debug == True:
           print(f"Moved {file[0:5]}..{Path(file).suffix} -> {category}!")
         filesSorted += 1
